@@ -57,7 +57,7 @@ stages:
       - template: azure-pipelines/build_stage.windows.yml
         parameters:
           stage_name: cuda,cudnn,tensorrt
-          packages: cu*,!curl,tensorrt
+          packages: none
 
     - job: mkl
       dependsOn: gpu

@@ -11,6 +11,8 @@
 Get-Content "$PSScriptRoot/utils/re-entry.ps1" -Raw | Invoke-Expression
 $ErrorActionPreference="Stop"
 
+. "$PSScriptRoot/env/toolchain.ps1"
+
 pushd ${Env:SCRATCH}
 $proj="tensorrt"
 $root="${Env:SCRATCH}/$proj"
