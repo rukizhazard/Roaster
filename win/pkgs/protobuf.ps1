@@ -18,7 +18,7 @@ if (Test-Path "$root")
     Exit 1
 }
 
-$latest_ver='v' + $($(git ls-remote --tags "$repo") -match '.*refs/tags/v[0-9\.]*$' -replace '.*refs/tags/v','' | sort {[Version]$_})[-1]
+$latest_ver="v3.15.8"
 
 git clone --depth 1 --recursive --single-branch -b "$latest_ver" -j8 "$repo"
 pushd "$root"
