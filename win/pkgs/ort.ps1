@@ -49,16 +49,6 @@ $run_tests = $((Get-Command -Name "nvidia-smi" -ErrorAction SilentlyContinue) -a
 # Patch
 # ================================================================================
 
-# Known issues:
-#   - CUDA test hang without GPU.
-#     https://github.com/microsoft/onnxruntime/issues/4656
-git fetch origin master
-git cherry-pick 0978d2b
-git cherry-pick 7250562
-
-git remote add patch "${Env:GIT_MIRROR}/xkszltl/onnxruntime.git"
-git fetch patch
-
 # ================================================================================
 # Update GTest
 # ================================================================================
@@ -163,7 +153,6 @@ else
         -DBOOST_ROOT="${Env:ProgramFiles}/boost"                                        `
         -DBUILD_SHARED_LIBS=OFF                                                         `
         -DCMAKE_C_FLAGS="/GL /MP /Zi /arch:AVX2"                                        `
-        -DCMAKE_CUDA_FLAGS="-gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm_37"    `
         -DCMAKE_CXX_FLAGS="/EHsc /GL /MP /Zi /arch:AVX2"                                `
         -DCMAKE_EXE_LINKER_FLAGS="/DEBUG:FASTLINK /LTCG:incremental"                    `
         -DCMAKE_INSTALL_PREFIX="${Env:ProgramFiles}/onnxruntime"                        `
@@ -174,15 +163,13 @@ else
         -Deigen_SOURCE_PATH="${Env:ProgramFiles}/Eigen3/include/eigen3"                 `
         -Donnxruntime_BUILD_CSHARP=OFF                                                  `
         -Donnxruntime_BUILD_SHARED_LIB=ON                                               `
-        -Donnxruntime_CUDA_HOME="$(Split-Path (Get-Command nvcc).Source -Parent)/.."    `
-        -Donnxruntime_CUDNN_HOME="$(Split-Path (Get-Command nvcc).Source -Parent)/.."   `
-        -Donnxruntime_ENABLE_PYTHON=ON                                                  `
+        -Donnxruntime_ENABLE_PYTHON=OFF                                                `
         -Donnxruntime_RUN_ONNX_TESTS=ON                                                 `
         -Donnxruntime_ENABLE_LANGUAGE_INTEROP_OPS=ON                                    `
         -Donnxruntime_ENABLE_LTO=OFF                                                    `
         -Donnxruntime_PREFER_SYSTEM_LIB=OFF                                             `
         -Donnxruntime_TENSORRT_HOME="${Env:ProgramFiles}/tensorrt"                      `
-        -Donnxruntime_USE_CUDA=ON                                                       `
+        -Donnxruntime_USE_CUDA=OFF                                                       `
         -Donnxruntime_USE_DNNL=ON                                                       `
         -Donnxruntime_USE_EIGEN_FOR_BLAS=ON                                             `
         -Donnxruntime_USE_FULL_PROTOBUF=ON                                              `
@@ -194,7 +181,7 @@ else
         -Donnxruntime_USE_OPENBLAS=OFF                                                  `
         -Donnxruntime_USE_OPENMP=OFF                                                    `
         -Donnxruntime_USE_PREINSTALLED_EIGEN=OFF                                        `
-        -Donnxruntime_USE_TENSORRT=ON                                                   `
+        -Donnxruntime_USE_TENSORRT=OFF                                                  `
         -Donnxruntime_USE_TVM=OFF                                                       `
         -G"Visual Studio 16 2019"                                                       `
         -T"host=x64"                                                                    `
@@ -248,6 +235,7 @@ if ($run_tests)
 cmd /c rmdir /S /Q "${Env:ProgramFiles}/onnxruntime"
 cmake --build . --config Release --target install -- -maxcpucount
 cmd /c xcopy    /i /f /y "pdb\Release\*.pdb"                "${Env:ProgramFiles}\onnxruntime\bin"
+cmd /c xcopy    /i /f /y "Release\*.lib"                    "${Env:ProgramFiles}\onnxruntime\lib"
 # cmd /c xcopy /e /i /f /y "..\cmake\external\gsl\include"    "${Env:ProgramFiles}\onnxruntime\include"
 # cmd /c xcopy /e /i /f /y "..\cmake\external\onnx\onnx"      "${Env:ProgramFiles}\onnxruntime\include\onnx"
 # cmd /c xcopy    /i /f /y "onnx\*.pb.h"                      "${Env:ProgramFiles}\onnxruntime\include\onnx"
@@ -258,8 +246,8 @@ Get-ChildItem "${Env:ProgramFiles}/onnxruntime" -Filter *.dll -Recurse | Foreach
 Get-ChildItem "${Env:ProgramFiles}/onnxruntime" -Filter *.exe -Recurse | Foreach-Object { New-Item -Force -ItemType SymbolicLink -Path "${Env:SystemRoot}\System32\$_" -Value $_.FullName }
 
 onnx_test_runner -e cpu ./models
-onnx_test_runner -e dnnl ./models
-onnx_test_runner -e cuda ./models
+# onnx_test_runner -e dnnl ./models
+# onnx_test_runner -e cuda ./models
 
 popd
 popd
