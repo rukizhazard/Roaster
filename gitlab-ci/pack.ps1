@@ -104,7 +104,7 @@ foreach ($pkg in $packages)
     {
         $prefix = "${Env:ProgramFiles}/Cream"
     }
-    elseif ($pkg -eq "ort" -or $pkg -eq "ort-dev")
+    elseif ($pkg -eq "ort" -or $pkg -eq "ort-dev" -or $pkg -eq "ort-mlas")
     {
         $prefix = "${Env:ProgramFiles}/onnxruntime"
     }

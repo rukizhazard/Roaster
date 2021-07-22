@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Roaster.ort-mlas.v142.static.x64</id>
+    <version>$version$</version>
+    <title>Roaster.ort-mlas.v142.static.x64</title>
+    <authors>Microsoft Corporation</authors>
+    <owners>Yateng Hong</owners>
+    <licenseUrl>https://github.com/Microsoft/onnxruntime/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/onnxruntime</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>ONNX Runtime is an open-source scoring engine for Open Neural Network Exchange (ONNX) models.</summary>
+    <description>ONNX is an open format for machine learning (ML) models that is supported by various ML and DNN frameworks and tools. This format makes it easier to interoperate between frameworks and to maximize the reach of your hardware optimization investments. Learn more about ONNX on https://onnx.ai or view the Github Repo.</description>
+    <releaseNotes>https://github.com/microsoft/onnxruntime</releaseNotes>
+    <copyright>Copyright 2021</copyright>
+    <tags>ort onnxruntime mlas native C++ v142 static</tags>
+  </metadata>
+  <files>
+    <file src="Roaster.ort-mlas.v142.static.x64.targets"    target="build\Roaster.ort-mlas.v142.static.x64.targets" />
+    <file src="ort-mlas\include\onnxruntime\mlas\*"         target="lib\native\include\onnxruntime\mlas\"/>
+    <file src="ort-mlas\lib\onnxruntime_common.lib"         target="lib\native\lib\Release\" />
+    <file src="ort-mlas\lib\onnxruntime_mlas.lib"           target="lib\native\lib\Release\" />
+  </files>
+</package>
