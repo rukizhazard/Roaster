@@ -236,6 +236,12 @@ cmd /c rmdir /S /Q "${Env:ProgramFiles}/onnxruntime"
 cmake --build . --config Release --target install -- -maxcpucount
 cmd /c xcopy    /i /f /y "pdb\Release\*.pdb"                "${Env:ProgramFiles}\onnxruntime\bin"
 
+# Rebuild ORT without /GL which causes compiler compatibility issues.
+cmake -DCMAKE_C_FLAGS="/MP /Zi /arch:AVX2" -DCMAKE_CXX_FLAGS="/EHsc /MP /Zi /arch:AVX2" ../cmake
+cmake --build . --config Release --target clean
+cmake --build . --config Release --target onnxruntime_common  -- -maxcpucount
+cmake --build . --config Release --target onnxruntime_mlas  -- -maxcpucount
+
 # Copy onnxruntime static libraries
 cmd /c xcopy    /i /f /y "Release\*.lib"                        "${Env:ProgramFiles}\onnxruntime\lib"
 cmd /c xcopy    /i /f /y "..\onnxruntime\core\mlas\inc\mlas.h"  "${Env:ProgramFiles}\onnxruntime\include\onnxruntime\mlas\"
