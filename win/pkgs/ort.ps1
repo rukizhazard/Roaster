@@ -29,9 +29,6 @@ $latest_ver = 'v' + $($(git ls-remote --tags "$repo") -match '.*refs/tags/v[0-9\
 # Use master.
 # $latest_ver = 'master'
 
-# Use user branch
-$latest_ver = 'tracysh/convsym'
-
 git clone --recursive -b "$latest_ver" -j100 "$repo"
 pushd "$root"
 
