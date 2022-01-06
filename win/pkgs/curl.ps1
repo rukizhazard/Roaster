@@ -18,7 +18,7 @@ if (Test-Path "$root")
     Exit 1
 }
 
-$latest_ver='curl-' + $($($($(git ls-remote --tags "$repo") -match '.*refs/tags/curl-[0-9\._]*$' -replace '.*refs/tags/curl-','') -replace '_','.' | sort {[Version]$_})[-1] -replace '\.','_')
+$latest_ver="curl-7_80_0"
 git clone --depth 1 --single-branch -b "$latest_ver" "$repo"
 pushd "$root"
 
