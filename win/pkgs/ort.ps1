@@ -243,8 +243,9 @@ cmake --build . --config Release --target onnxruntime_common  -- -maxcpucount
 cmake --build . --config Release --target onnxruntime_mlas  -- -maxcpucount
 
 # Copy onnxruntime static libraries
-cmd /c xcopy    /i /f /y "Release\*.lib"                        "${Env:ProgramFiles}\onnxruntime\lib"
-cmd /c xcopy    /i /f /y "..\onnxruntime\core\mlas\inc\mlas.h"  "${Env:ProgramFiles}\onnxruntime\include\onnxruntime\mlas\"
+cmd /c xcopy    /i /f /y "Release\*.lib"                                "${Env:ProgramFiles}\onnxruntime\lib"
+cmd /c xcopy    /i /f /y "external\pytorch_cpuinfo\Release\cpuinfo.lib" "${Env:ProgramFiles}\onnxruntime\lib"
+cmd /c xcopy    /i /f /y "..\onnxruntime\core\mlas\inc\mlas.h"          "${Env:ProgramFiles}\onnxruntime\include\onnxruntime\mlas\"
 
 # cmd /c xcopy /e /i /f /y "..\cmake\external\gsl\include"    "${Env:ProgramFiles}\onnxruntime\include"
 # cmd /c xcopy /e /i /f /y "..\cmake\external\onnx\onnx"      "${Env:ProgramFiles}\onnxruntime\include\onnx"
