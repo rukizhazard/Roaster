@@ -20,5 +20,6 @@
     <file src="ort-mlas\include\onnxruntime\mlas\*"         target="lib\native\include\onnxruntime\mlas\"/>
     <file src="ort-mlas\lib\onnxruntime_common.lib"         target="lib\native\lib\Release\" />
     <file src="ort-mlas\lib\onnxruntime_mlas.lib"           target="lib\native\lib\Release\" />
+    <file src="ort-mlas\lib\cpuinfo.lib"                    target="lib\native\lib\Release\" />
   </files>
 </package>
