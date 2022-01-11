@@ -236,6 +236,7 @@ cmd /c rmdir /S /Q "${Env:ProgramFiles}/onnxruntime"
 cmake --build . --config Release --target install -- -maxcpucount
 cmd /c xcopy    /i /f /y "pdb\Release\*.pdb"                "${Env:ProgramFiles}\onnxruntime\bin"
 cmd /c xcopy    /i /f /y "external\pytorch_cpuinfo\Release\cpuinfo.lib" "${Env:ProgramFiles}\onnxruntime\lib"
+cmd /c xcopy    /i /f /y "external\pytorch_cpuinfo\deps\clog\Release\clog.lib" "${Env:ProgramFiles}\onnxruntime\lib"
 
 # Rebuild ORT without /GL which causes compiler compatibility issues.
 cmake -DCMAKE_C_FLAGS="/MP /Zi /arch:AVX2" -DCMAKE_CXX_FLAGS="/EHsc /MP /Zi /arch:AVX2" ../cmake
