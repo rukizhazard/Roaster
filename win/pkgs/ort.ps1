@@ -163,13 +163,15 @@ else
         -Deigen_SOURCE_PATH="${Env:ProgramFiles}/Eigen3/include/eigen3"                 `
         -Donnxruntime_BUILD_CSHARP=OFF                                                  `
         -Donnxruntime_BUILD_SHARED_LIB=ON                                               `
+        -Donnxruntime_CUDA_HOME="$(Split-Path (Get-Command nvcc).Source -Parent)/.."    `
+        -Donnxruntime_CUDNN_HOME="$(Split-Path (Get-Command nvcc).Source -Parent)/.."   `
         -Donnxruntime_ENABLE_PYTHON=OFF                                                `
         -Donnxruntime_RUN_ONNX_TESTS=ON                                                 `
         -Donnxruntime_ENABLE_LANGUAGE_INTEROP_OPS=ON                                    `
         -Donnxruntime_ENABLE_LTO=OFF                                                    `
         -Donnxruntime_PREFER_SYSTEM_LIB=OFF                                             `
         -Donnxruntime_TENSORRT_HOME="${Env:ProgramFiles}/tensorrt"                      `
-        -Donnxruntime_USE_CUDA=OFF                                                       `
+        -Donnxruntime_USE_CUDA=ON                                                       `
         -Donnxruntime_USE_DNNL=ON                                                       `
         -Donnxruntime_USE_EIGEN_FOR_BLAS=ON                                             `
         -Donnxruntime_USE_FULL_PROTOBUF=ON                                              `
@@ -181,7 +183,7 @@ else
         -Donnxruntime_USE_OPENBLAS=OFF                                                  `
         -Donnxruntime_USE_OPENMP=OFF                                                    `
         -Donnxruntime_USE_PREINSTALLED_EIGEN=OFF                                        `
-        -Donnxruntime_USE_TENSORRT=OFF                                                  `
+        -Donnxruntime_USE_TENSORRT=ON                                                  `
         -Donnxruntime_USE_TVM=OFF                                                       `
         -G"Visual Studio 16 2019"                                                       `
         -T"host=x64"                                                                    `
