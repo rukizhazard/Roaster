@@ -31,6 +31,8 @@ pushd "$root"
 $trt_mirror="https://github.com/xkszltl/Roaster/releases/download/trt"
 $trt_name="TensorRT-8.0.1.6.Windows10.x86_64.cuda-$((nvcc --version) -match ' release ([0-9\.]*)' -replace '.* release ([0-9\.]*).*','${1}' -replace '11.[0-9]','11.3').cudnn8.2.zip"
 $trt_name="TensorRT-7.2.3.4.Windows10.x86_64.cuda-$((nvcc --version) -match ' release ([0-9\.]*)' -replace '.* release ([0-9\.]*).*','${1}' -replace '11.[2-9]','11.1').cudnn8.1.zip"
+$trt_name="TensorRT-8.2.3.0.Windows10.x86_64.cuda-11.4.cudnn8.2.zip"
+
 
 if (-not (Test-Path "../${trt_name}"))
 {
