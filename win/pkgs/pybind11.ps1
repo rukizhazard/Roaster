@@ -20,7 +20,7 @@ if (Test-Path "$root")
     Exit 1
 }
 
-$latest_ver='v' + $($(git ls-remote --tags "$repo") -match '.*refs/tags/v[0-9\.]*$' -replace '.*refs/tags/v','' | sort {[Version]$_})[-1]
+$latest_ver='v2.9.1'
 git clone --recursive --single-branch -b "$latest_ver" "$repo"
 pushd "$root"
 
