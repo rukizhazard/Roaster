@@ -1,6 +1,6 @@
 # Build with "docker build --pull --no-cache -t docker.codingcafe.org/xkszltl/roaster/centos git@git.codingcafe.org:xkszltl/roaster.git"
 
-FROM centos
+FROM mcr.microsoft.com/mirror/docker/library/centos
 
 ARG LABEL_BUILD_ID=Undefined
 LABEL BUILD_ID=$LABEL_BUILD_ID
